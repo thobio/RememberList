@@ -356,7 +356,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Snh-xg-1ii">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="e0V-ek-v3X" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="nav" automaticallyAdjustsScrollViewInsets="NO" id="e0V-ek-v3X" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="OKp-eD-acp">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
