@@ -67,7 +67,7 @@ class ListTableViewController: UIViewController,UITableViewDelegate,UITableViewD
         do
         {
             let requests:NSFetchRequest<Detials> =  Detials.fetchRequest()
-            requests.predicate = NSPredicate(format: "dates == %@", dates)
+            requests.predicate = NSPredicate(format: "dates == %@ AND isAdded ==%@", dates,false as CVarArg)
             details = (try context?.fetch(requests))!
         }catch  {
             let alert = UIAlertController(title: "Error,Try again!", message: "Sorry cant get date \(error.localizedDescription)", preferredStyle: .alert)
@@ -133,9 +133,18 @@ class ListTableViewController: UIViewController,UITableViewDelegate,UITableViewD
   
         }
         
-        let share = UITableViewRowAction(style: .default, title: "Share") { (action, indexPath) in
+        let share = UITableViewRowAction(style: .default, title: "Move to Cheked List") { (action, indexPath) in
             // share item at indexPath
-            
+            let days = details[indexPath.row]
+            days.isAdded = true
+            do{
+                try context?.save()
+                
+            }catch{
+                fatalError("Failed to execute request: \(error)")
+            }
+            self.getDate()
+            tableView.reloadData()
         }
         
         share.backgroundColor = UIColor.lightGray

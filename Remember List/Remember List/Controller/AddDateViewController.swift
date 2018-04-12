@@ -38,6 +38,7 @@ class AddDateViewController: UIViewController,UITextFieldDelegate,UITextViewDele
         details.dates = dates
         details.names = titleText.text
         details.comments = commentTextFields.text
+        details.isAdded = false
         appDelegate?.saveContext()
         let alert = UIAlertController(title: "Saved", message: "Your list have been added.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: { (alertAction) in
