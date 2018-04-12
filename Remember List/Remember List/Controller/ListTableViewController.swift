@@ -7,20 +7,32 @@
 //
 
 import UIKit
+import CoreData
 
+var details = [Detials]()
 
-
-class ListTableViewController: UIViewController {
+class ListTableViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+  
+    //MARK: - Variable decalartion
     
     @IBOutlet weak var dayLabel: UILabel!
     var dates = NSDate()
-    
+    @IBOutlet weak var tableViews: UITableView!
     @IBOutlet weak var viewBacke: UIView!
+    
+    //MARK: - Main Function
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableViews.delegate = self
+        self.tableViews.dataSource = self
         labelValue()
         NotificationCenter.default.addObserver(self, selector: #selector(self.timeChangedNotification(notification:)), name: NSNotification.Name.NSCalendarDayChanged, object: nil)
-        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        getDate()
+        tableViews.reloadData()
     }
     func labelValue(){
         DispatchQueue.main.async { // Correct
@@ -34,12 +46,14 @@ class ListTableViewController: UIViewController {
         return diffInDays!
     }
     
-    
     // MARK: - Method get called user changed the system time manually.
-        @objc func timeChangedNotification(notification:NSNotification){
-            labelValue()
-        }
+    
+    @objc func timeChangedNotification(notification:NSNotification){
+        labelValue()
+    }
 
+    //MARK: - Converting the Date to String Formate
+    
     func getDateCoreDate(getDate:Date)->String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MMMM yyyy"
@@ -47,6 +61,20 @@ class ListTableViewController: UIViewController {
         return dateString
     }
     
+    //MARK: - Core Data Get the value
+    
+    func getDate(){
+        do
+        {
+            let requests:NSFetchRequest<Detials> =  Detials.fetchRequest()
+            requests.predicate = NSPredicate(format: "dates == %@", dates)
+            details = (try context?.fetch(requests))!
+        }catch  {
+            print("Fetch Failed")
+        }
+    }
+    
+    //MARK: - Item Action button
 
     @IBAction func BackButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -58,30 +86,32 @@ class ListTableViewController: UIViewController {
         vc.dates = self.dates
         let navigationController = UINavigationController(rootViewController: vc)
         self.present(navigationController, animated: true, completion: nil)
-    
     }
     
     // MARK: - Table view data source
 
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 1
-//    }
-//
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete implementation, return the number of rows
-//        return 1
-//    }
-//
-//
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath)
-//        cell.detailTextLabel?.text = "hii"
-//        // Configure the cell...
-//
-//        return cell
-//    }
-//
+   func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return details.count
+    }
+
+
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellTest", for: indexPath) as! DaysLeftTableViewCell
+        let datas = details[indexPath.row]
+        print(datas.comments)
+        DispatchQueue.main.async {
+            cell.nameLabel.text = datas.names
+            cell.detailLabel.text = datas.comments
+        }
+        return cell
+    }
+
 
     /*
     // Override to support conditional editing of the table view.
