@@ -47,17 +47,20 @@ class ListTableViewController: UIViewController {
         return dateString
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
     @IBAction func BackButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func AddListToCoredata(_ sender: Any) {
-        
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc:AddDateViewController  = storyboard.instantiateViewController(withIdentifier: "AddList") as! AddDateViewController
+        vc.dates = self.dates
+        let navigationController = UINavigationController(rootViewController: vc)
+        self.present(navigationController, animated: true, completion: nil)
+    
     }
+    
     // MARK: - Table view data source
 
 //    override func numberOfSections(in tableView: UITableView) -> Int {

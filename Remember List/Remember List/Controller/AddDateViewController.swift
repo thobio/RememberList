@@ -8,28 +8,40 @@
 
 import UIKit
 
-class AddDateViewController: UIViewController {
-
+class AddDateViewController: UIViewController,UITextFieldDelegate,UITextViewDelegate {
+    
+    //MARK: - Variable Declaration
+    
+    @IBOutlet weak var titleText: UITextField!
+    var dates = NSDate()
+    @IBOutlet weak var commentTextFields: UITextView!
+    
+    //MARK: - Main Function
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        self.titleText.delegate = self
+        self.commentTextFields.delegate = self
+        print(dates)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    //MARK: - TextField Delegetes
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
-    */
-
+    
+    // MARK: - Item Button Action
+    
+    @IBAction func saveToAddList(_ sender: Any) {
+        let details = Detials(context: context!)
+        details.dates = dates
+        details.names = titleText.text
+        details.comments = commentTextFields.text
+        appDelegate?.saveContext()
+    }
+    @IBAction func cancelButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
 }
