@@ -107,7 +107,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             let days = items[indexPath.row]
             context.delete(days)
             (UIApplication.shared.delegate as! AppDelegate).saveContext()
-            tableView.deleteRows(at: [indexPath], with: .fade)
+
             self.getDate()
             tableView.reloadData()
         }

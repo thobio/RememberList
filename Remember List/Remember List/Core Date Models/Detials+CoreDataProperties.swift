@@ -2,7 +2,7 @@
 //  Detials+CoreDataProperties.swift
 //  Remember List
 //
-//  Created by Thobio on 10/04/18.
+//  Created by Thobio on 12/04/18.
 //  Copyright © 2018 STapps. All rights reserved.
 //
 //
@@ -18,8 +18,9 @@ extension Detials {
     }
 
     @NSManaged public var comments: String?
-    @NSManaged public var names: String?
     @NSManaged public var dates: NSDate?
+    @NSManaged public var names: String?
+    @NSManaged public var isAdded: Bool
     @NSManaged public var owner: Day?
 
 }
