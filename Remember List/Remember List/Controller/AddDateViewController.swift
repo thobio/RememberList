@@ -22,7 +22,6 @@ class AddDateViewController: UIViewController,UITextFieldDelegate,UITextViewDele
         super.viewDidLoad()
         self.titleText.delegate = self
         self.commentTextFields.delegate = self
-        print(dates)
     }
     
     //MARK: - TextField Delegetes

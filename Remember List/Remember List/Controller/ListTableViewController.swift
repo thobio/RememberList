@@ -70,7 +70,9 @@ class ListTableViewController: UIViewController,UITableViewDelegate,UITableViewD
             requests.predicate = NSPredicate(format: "dates == %@", dates)
             details = (try context?.fetch(requests))!
         }catch  {
-            print("Fetch Failed")
+            let alert = UIAlertController(title: "Error,Try again!", message: "Sorry cant get date \(error.localizedDescription)", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: nil))
+            self.present(alert, animated: true, completion:nil)
         }
     }
     
@@ -104,58 +106,42 @@ class ListTableViewController: UIViewController,UITableViewDelegate,UITableViewD
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellTest", for: indexPath) as! DaysLeftTableViewCell
         let datas = details[indexPath.row]
-        print(datas.comments)
         DispatchQueue.main.async {
             cell.nameLabel.text = datas.names
             cell.detailLabel.text = datas.comments
         }
         return cell
     }
+     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            // delete item at indexPath
+            
+            let days = details[indexPath.row]
+            let requests:NSFetchRequest<Detials> =  Detials.fetchRequest()
+            requests.predicate = NSPredicate(format: "dates == %@ AND names == %@ AND comments == %@", days.dates!,days.names!,days.comments!)
+            let requestdata = NSBatchDeleteRequest(fetchRequest: requests as! NSFetchRequest<NSFetchRequestResult>)
+            do{
+                try context?.execute(requestdata)
+                
+            }catch{
+                fatalError("Failed to execute request: \(error)")
+            }
 
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+            self.getDate()
+            tableView.reloadData()
+  
+        }
+        
+        let share = UITableViewRowAction(style: .default, title: "Share") { (action, indexPath) in
+            // share item at indexPath
+            
+        }
+        
+        share.backgroundColor = UIColor.lightGray
+        
+        return [delete, share]
+        
     }
-    */
-
-    
-//    // Override to support editing the table view.
-//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            // Delete the row from the data source
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//        } else if editingStyle == .insert {
-//            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-//        }
-//    }
-
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
