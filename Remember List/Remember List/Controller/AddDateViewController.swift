@@ -22,6 +22,8 @@ class AddDateViewController: UIViewController,UITextFieldDelegate,UITextViewDele
         super.viewDidLoad()
         self.titleText.delegate = self
         self.commentTextFields.delegate = self
+        commentTextFields.layer.borderWidth = 1
+        commentTextFields.layer.borderColor = UIColor.lightGray.cgColor
     }
     
     //MARK: - TextField Delegetes
