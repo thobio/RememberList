@@ -34,18 +34,24 @@ class AddDateViewController: UIViewController,UITextFieldDelegate,UITextViewDele
     // MARK: - Item Button Action
     
     @IBAction func saveToAddList(_ sender: Any) {
-        let details = Detials(context: context!)
-        details.dates = dates
-        details.names = titleText.text
-        details.comments = commentTextFields.text
-        details.isAdded = false
-        appDelegate?.saveContext()
-        let alert = UIAlertController(title: "Saved", message: "Your list have been added.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: { (alertAction) in
-            self.dismiss(animated: true, completion: nil)
-        }))
-        self.present(alert, animated: true, completion:nil)
-        
+        if ((titleText.text?.isEmpty)! && (commentTextFields.text != nil)){
+            let alert = UIAlertController(title: "Error", message: "Please fill your data", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: { (alertAction) in
+            }))
+            self.present(alert, animated: true, completion:nil)
+        }else{
+            let details = Detials(context: context!)
+            details.dates = dates
+            details.names = titleText.text
+            details.comments = commentTextFields.text
+            details.isAdded = false
+            appDelegate?.saveContext()
+            let alert = UIAlertController(title: "Saved", message: "Your list have been added.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: { (alertAction) in
+                self.dismiss(animated: true, completion: nil)
+            }))
+            self.present(alert, animated: true, completion:nil)
+        }
     }
     
     @IBAction func cancelButton(_ sender: Any) {
