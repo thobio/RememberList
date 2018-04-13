@@ -11,10 +11,11 @@ import CoreData
 
 var details = [Detials]()
 
+
 class ListTableViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
   
     //MARK: - Variable decalartion
-    
+    var refreshControl: UIRefreshControl!
     @IBOutlet weak var dayLabel: UILabel!
     var dates = NSDate()
     @IBOutlet weak var tableViews: UITableView!
@@ -26,6 +27,11 @@ class ListTableViewController: UIViewController,UITableViewDelegate,UITableViewD
         super.viewDidLoad()
         self.tableViews.delegate = self
         self.tableViews.dataSource = self
+        refreshControl = UIRefreshControl()
+        refreshControl?.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl?.addTarget(self, action:#selector(refresh(sender:)), for: .valueChanged)
+        tableViews.addSubview(refreshControl)
+        datesTo = dates
         labelValue()
         NotificationCenter.default.addObserver(self, selector: #selector(self.timeChangedNotification(notification:)), name: NSNotification.Name.NSCalendarDayChanged, object: nil)
     }
@@ -33,6 +39,14 @@ class ListTableViewController: UIViewController,UITableViewDelegate,UITableViewD
         super.viewWillAppear(true)
         getDate()
         tableViews.reloadData()
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        
+    }
+    @objc func refresh(sender:AnyObject) {
+        tableViews.reloadData()
+        refreshControl?.endRefreshing()
     }
     func labelValue(){
         DispatchQueue.main.async { // Correct
@@ -116,41 +130,32 @@ class ListTableViewController: UIViewController,UITableViewDelegate,UITableViewD
         
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
             // delete item at indexPath
-            
             let days = details[indexPath.row]
             let requests:NSFetchRequest<Detials> =  Detials.fetchRequest()
             requests.predicate = NSPredicate(format: "dates == %@ AND names == %@ AND comments == %@", days.dates!,days.names!,days.comments!)
             let requestdata = NSBatchDeleteRequest(fetchRequest: requests as! NSFetchRequest<NSFetchRequestResult>)
             do{
                 try context?.execute(requestdata)
-                
             }catch{
                 fatalError("Failed to execute request: \(error)")
             }
-
             self.getDate()
             tableView.reloadData()
-  
         }
-        
         let share = UITableViewRowAction(style: .default, title: "Move to Cheked List") { (action, indexPath) in
             // share item at indexPath
             let days = details[indexPath.row]
             days.isAdded = true
             do{
                 try context?.save()
-                
             }catch{
                 fatalError("Failed to execute request: \(error)")
             }
             self.getDate()
             tableView.reloadData()
         }
-        
         share.backgroundColor = UIColor.lightGray
-        
         return [delete, share]
-        
     }
 
 }

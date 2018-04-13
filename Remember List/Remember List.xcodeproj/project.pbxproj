@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		845DE61620807379003D865B /* CheckedListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845DE61520807379003D865B /* CheckedListTableViewCell.swift */; };
 		84677C77207C8157005B24F3 /* Detials+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84677C73207C8157005B24F3 /* Detials+CoreDataClass.swift */; };
 		84677C78207C8157005B24F3 /* Detials+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84677C74207C8157005B24F3 /* Detials+CoreDataProperties.swift */; };
 		84677C79207C8157005B24F3 /* Day+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84677C75207C8157005B24F3 /* Day+CoreDataClass.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		845DE61520807379003D865B /* CheckedListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckedListTableViewCell.swift; sourceTree = "<group>"; };
 		84677C73207C8157005B24F3 /* Detials+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Detials+CoreDataClass.swift"; sourceTree = "<group>"; };
 		84677C74207C8157005B24F3 /* Detials+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Detials+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		84677C75207C8157005B24F3 /* Day+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Day+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				84677C82207CE707005B24F3 /* DaysLeftTableViewCell.swift */,
 				84754A59207DD6B800234951 /* TextFieldsBoader.swift */,
 				84754A5B207DDA4700234951 /* TextViewStyle.swift */,
+				845DE61520807379003D865B /* CheckedListTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				84677C81207CCBBB005B24F3 /* CheckedListTableViewController.swift in Sources */,
 				84CF28BA207B233E008C48FA /* ViewController.swift in Sources */,
 				84CF28B8207B233E008C48FA /* AppDelegate.swift in Sources */,
+				845DE61620807379003D865B /* CheckedListTableViewCell.swift in Sources */,
 				84E28729207F3ED300C5AF4A /* AddListViewController.swift in Sources */,
 				84677C78207C8157005B24F3 /* Detials+CoreDataProperties.swift in Sources */,
 				84677C79207C8157005B24F3 /* Day+CoreDataClass.swift in Sources */,

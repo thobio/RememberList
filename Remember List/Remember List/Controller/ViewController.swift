@@ -15,18 +15,26 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
 
     @IBOutlet weak var tabelViews: UITableView!
-    
+    var refreshControl: UIRefreshControl!
     // MARK: - View Did Load and Will Appear
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tabelViews.delegate = self
         tabelViews.dataSource = self
+        refreshControl = UIRefreshControl()
+        refreshControl?.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl?.addTarget(self, action:#selector(refresh(sender:)), for: .valueChanged)
+        tabelViews.addSubview(refreshControl)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         getDate()
         tabelViews.reloadData()
+    }
+    @objc func refresh(sender:AnyObject) {
+        tabelViews.reloadData()
+        refreshControl?.endRefreshing()
     }
     
      // MARK: - Add Action Button
@@ -103,11 +111,18 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
-            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+   
             let days = items[indexPath.row]
-            context.delete(days)
-            (UIApplication.shared.delegate as! AppDelegate).saveContext()
-
+            context?.delete(days)
+            appDelegate?.saveContext()
+            let requests:NSFetchRequest<Detials> =  Detials.fetchRequest()
+            requests.predicate = NSPredicate(format: "dates == %@", days)
+            let requestdata = NSBatchDeleteRequest(fetchRequest: requests as! NSFetchRequest<NSFetchRequestResult>)
+            do{
+                try context?.execute(requestdata)
+            }catch{
+                fatalError("Failed to execute request: \(error)")
+            }
             self.getDate()
             tableView.reloadData()
         }
