@@ -13,7 +13,7 @@ var details = [Detials]()
 
 
 class ListTableViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-  
+    
     //MARK: - Variable decalartion
     var refreshControl: UIRefreshControl!
     @IBOutlet weak var dayLabel: UILabel!
@@ -65,7 +65,7 @@ class ListTableViewController: UIViewController,UITableViewDelegate,UITableViewD
     @objc func timeChangedNotification(notification:NSNotification){
         labelValue()
     }
-
+    
     //MARK: - Converting the Date to String Formate
     
     func getDateCoreDate(getDate:Date)->String{
@@ -91,7 +91,7 @@ class ListTableViewController: UIViewController,UITableViewDelegate,UITableViewD
     }
     
     //MARK: - Item Action button
-
+    
     @IBAction func BackButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -105,19 +105,19 @@ class ListTableViewController: UIViewController,UITableViewDelegate,UITableViewD
     }
     
     // MARK: - Table view data source
-
-   func numberOfSections(in tableView: UITableView) -> Int {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return details.count
     }
-
-
-     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellTest", for: indexPath) as! DaysLeftTableViewCell
         let datas = details[indexPath.row]
         DispatchQueue.main.async {
@@ -126,7 +126,7 @@ class ListTableViewController: UIViewController,UITableViewDelegate,UITableViewD
         }
         return cell
     }
-     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
             // delete item at indexPath
@@ -157,5 +157,5 @@ class ListTableViewController: UIViewController,UITableViewDelegate,UITableViewD
         share.backgroundColor = UIColor.lightGray
         return [delete, share]
     }
-
+    
 }

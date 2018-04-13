@@ -11,7 +11,10 @@ import CoreData
 var checkedlist = [Detials]()
 var refreshControl: UIRefreshControl!
 class CheckedListTableViewController: UITableViewController {
-
+    
+    
+    //MARK: - Main function
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         refreshControl = UIRefreshControl()
@@ -27,7 +30,9 @@ class CheckedListTableViewController: UITableViewController {
         tableView.reloadData()
         refreshControl?.endRefreshing()
     }
-
+    
+    //MARK: - CoreData getdate
+    
     func getData(){
         do
         {
@@ -40,18 +45,20 @@ class CheckedListTableViewController: UITableViewController {
             self.present(alert, animated: true, completion:nil)
         }
     }
+    
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return checkedlist.count
     }
-   
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:CheckedListTableViewCell = tableView.dequeueReusableCell(withIdentifier: "checkedlist", for: indexPath) as! CheckedListTableViewCell
         let checked = checkedlist[indexPath.row]
@@ -61,5 +68,12 @@ class CheckedListTableViewController: UITableViewController {
         }
         return cell
     }
-
+    
+    // MARK: - itemButtonAction
+    
+    
+    @IBAction func backButtonAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }

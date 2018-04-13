@@ -13,7 +13,7 @@ var items:[Day] = []
 
 class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
-
+    
     @IBOutlet weak var tabelViews: UITableView!
     var refreshControl: UIRefreshControl!
     // MARK: - View Did Load and Will Appear
@@ -37,7 +37,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         refreshControl?.endRefreshing()
     }
     
-     // MARK: - Add Action Button
+    // MARK: - Add Action Button
     
     @IBAction func AddActionButton(_ sender: Any) {
         
@@ -61,7 +61,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         
     }
     
-     // MARK: - Core Data Save Date
+    // MARK: - Core Data Save Date
     
     func  saveTheDate(saveDate:Date){
         
@@ -70,8 +70,8 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         appDelegate?.saveContext()
         self.tabelViews.reloadData()
     }
-
-     // MARK: - Convert the Date to String
+    
+    // MARK: - Convert the Date to String
     
     func getDateCoreDate(getDate:Date)->String{
         let dateFormatter = DateFormatter()
@@ -80,7 +80,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         return dateString
     }
     
-     // MARK: - Getting the Data From coredata
+    // MARK: - Getting the Data From coredata
     
     func getDate(){
         do
@@ -91,7 +91,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
     }
     
-     // MARK: - Table View Support
+    // MARK: - Table View Support
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count;
@@ -111,7 +111,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
-   
+            
             let days = items[indexPath.row]
             context?.delete(days)
             appDelegate?.saveContext()
@@ -136,12 +136,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         vc.dates = items[indexPath.row].dates!
         self.present(tabBarController, animated: true, completion: nil)
     }
-
+    
 }
-
-
-
-
-//  
 
 

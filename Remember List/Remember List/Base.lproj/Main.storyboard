@@ -262,7 +262,7 @@
             </objects>
             <point key="canvasLocation" x="5207" y="-438"/>
         </scene>
-        <!--Checked List Table View Controller-->
+        <!--Checked List-->
         <scene sceneID="aSM-hu-ICQ">
             <objects>
                 <tableViewController id="eco-hq-FAW" customClass="CheckedListTableViewController" customModule="Remember_List" customModuleProvider="target" sceneMemberID="viewController">
@@ -315,7 +315,13 @@
                             <outlet property="delegate" destination="eco-hq-FAW" id="gy8-47-7HA"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="0KY-dR-qm1"/>
+                    <navigationItem key="navigationItem" title="Checked List" id="0KY-dR-qm1">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="vyj-51-ki9">
+                            <connections>
+                                <action selector="backButtonAction:" destination="eco-hq-FAW" id="CxG-sk-oww"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JsI-Ho-g7Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
