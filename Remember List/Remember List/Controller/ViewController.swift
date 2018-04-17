@@ -22,6 +22,9 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         super.viewDidLoad()
         tabelViews.delegate = self
         tabelViews.dataSource = self
+        refreshControlerFunction()
+    }
+    func refreshControlerFunction(){
         refreshControl = UIRefreshControl()
         refreshControl?.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl?.addTarget(self, action:#selector(refresh(sender:)), for: .valueChanged)
