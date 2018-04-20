@@ -13,6 +13,7 @@ var items:[Day] = []
 
 class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
+    @IBOutlet weak var circleProgress: CircleProgressView!
     
     @IBOutlet weak var tabelViews: UITableView!
     var refreshControl: UIRefreshControl!

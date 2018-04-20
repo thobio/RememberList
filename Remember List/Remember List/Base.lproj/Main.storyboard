@@ -40,18 +40,42 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PkJ-12-yVG">
                                                     <rect key="frame" x="15" y="11" width="345" height="65"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20 Aug 2018" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHG-c9-ALN">
-                                                            <rect key="frame" x="8" y="8" width="329" height="49"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20 Aug 2018" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHG-c9-ALN">
+                                                            <rect key="frame" x="8" y="8" width="168.66666666666666" height="49"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0fy-cC-oex" customClass="CircleProgressView" customModule="Remember_List" customModuleProvider="target">
+                                                            <rect key="frame" x="272" y="0.0" width="65" height="65"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="tintColor" red="0.23529411759999999" green="0.54901960780000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="65" id="ULr-77-N1I"/>
+                                                                <constraint firstAttribute="width" constant="65" id="b0z-az-iUj"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="trackWidth">
+                                                                    <real key="value" value="3"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="progress">
+                                                                    <real key="value" value="42"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="trackFillColor">
+                                                                    <color key="value" red="0.23529411759999999" green="0.54901960780000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="trackBorderColor">
+                                                                    <color key="value" red="0.23529411759999999" green="0.54901960780000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="fHG-c9-ALN" firstAttribute="top" secondItem="PkJ-12-yVG" secondAttribute="top" constant="8" id="61R-pA-b02"/>
-                                                        <constraint firstAttribute="trailing" secondItem="fHG-c9-ALN" secondAttribute="trailing" constant="8" id="GE8-0E-q3A"/>
-                                                        <constraint firstAttribute="bottom" secondItem="fHG-c9-ALN" secondAttribute="bottom" constant="8" id="yXU-lu-ObW"/>
-                                                        <constraint firstItem="fHG-c9-ALN" firstAttribute="leading" secondItem="PkJ-12-yVG" secondAttribute="leading" constant="8" id="yoc-eN-XJt"/>
+                                                        <constraint firstAttribute="trailing" secondItem="0fy-cC-oex" secondAttribute="trailing" constant="8" id="1rO-QW-pmX"/>
+                                                        <constraint firstItem="fHG-c9-ALN" firstAttribute="top" secondItem="PkJ-12-yVG" secondAttribute="top" constant="8" id="Sgg-eF-7Kf"/>
+                                                        <constraint firstItem="0fy-cC-oex" firstAttribute="top" secondItem="PkJ-12-yVG" secondAttribute="top" id="lDg-KL-X6F"/>
+                                                        <constraint firstItem="fHG-c9-ALN" firstAttribute="leading" secondItem="PkJ-12-yVG" secondAttribute="leading" constant="8" id="oif-Ng-Vpi"/>
+                                                        <constraint firstAttribute="bottom" secondItem="fHG-c9-ALN" secondAttribute="bottom" constant="8" id="pXK-Tj-8dk"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -88,6 +112,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="circleProgress" destination="0fy-cC-oex" id="IEM-2q-k4c"/>
                         <outlet property="tabelViews" destination="13G-KZ-Izl" id="ONM-qn-rCN"/>
                     </connections>
                 </viewController>
